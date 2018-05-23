@@ -1,0 +1,50 @@
+\section{Preliminaries on LRC codes}
+
+\begin{frame}{Notation}
+    \begin{itemize}
+
+	    \item $\C$ denotes a code over the finite field $\FF_q$.
+	    
+	    \item The triple of parameters $(n,k,r)$ refers to a code of:
+	    \begin{itemize}
+	        \item length $n$
+	        \item cardinality $q^k$
+	        \item locality $r$
+	    \end{itemize}
+	    
+	    \item $[n] := \{ 1, \dots , n\}$
+	    
+	    \item A \textit{restriction} $\C_I$ of the code $\C$ to a subset of coordinates $I \subset [n]$ is the code obtained by removing from each vector the coordinates outside $I$.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Definition of LRC Codes}
+    Given $a \in \FF_q$ consider the sets of codewords of $\C$ with fixed value $a$ at the symbol $x_i$:
+
+    $$ \C (i,a) = \{ x \in \C : x_i = a \}, \quad i \in [n] $$
+    
+    \begin{defn}
+        A code $\C$ of length $n$ has \textbf{locality r} if $\ \forall i \in [n ] $ there exists a subset $I_i \subset [n] \setminus i, \quad \vert I_i \vert \leq r$ such that the restrictions of the sets $\C (i,a)$ to the coordinates in $I_i$ for different $a$ are disjoint:
+        $$\C_{I_i} (i,a) \cap \C_{I_i} (i,a') = \emptyset, \quad a \neq a'.$$
+    \end{defn}    
+\end{frame}
+
+\note{
+Given $x \in \C$, $i \in [n]$, there exists a subset $I_i \subset [n] \setminus i$ of at most $r$ coordinates such that the restriction of $\C$ to $I_i$ enables to find the value of $x_i$.
+    $I_i$ is called a \textbf{recovering set} for the symbol $x_i$.
+    }
+    
+\begin{frame}{Maximum rate}
+	Let $\C$ be an $(n,k,r)$ LRC code of cardinality $q^k$ over an alphabet of size $q$. Then:
+    \begin{thm}[Upper bound on the rate]
+        The rate of $\C$ satisfies
+        $$ \frac{k}{n} \leq \frac{r}{r+1} $$
+    \end{thm}
+    
+    \begin{thm}[Generalization of Singleton bound]
+        The minimum distance of $\C$ satisfies
+            $$d \leq n - k - \left\lceil \frac{k}{r} \right\rceil + 2$$
+        A code that achieves the bound with equality will be called an \textbf{optimal LRC code}.
+    \end{thm}
+\end{frame}

@@ -1,0 +1,132 @@
+\begin{frame}
+        \frametitle{Construction of LRC codes}
+        We want to construct a linear $(n,k,r)$-LRC code. Assume $r \vert k$ and $(r+1) \vert n$.
+        
+        We need:
+        
+        \begin{itemize}
+            \item $A_1 , \dots , A_{\frac{n}{r+1}}$ disjoint subsets of the field $\FF_q$, s.t. $\vert A_i \vert = r+1$
+            \item $g(x) \in \FF_q[x]$ a polynomial s.t.
+            \begin{enumerate}
+                \item $deg(g) = r+1$
+                \item $g$ is constant on each set $A_i$: $g(\alpha) = g(\beta)$ for $\alpha, \beta \in A_i$
+            \end{enumerate}
+        \end{itemize}                
+        We will call $g$ a good polynomial.
+        
+    \end{frame}
+    
+    \begin{frame}{Construction of LRC codes}
+        Let $A= \bigcup_{i=1}^{\frac{n}{r+1}} A_i \subset \FF_q$, $\vert A \vert = n$.
+        
+        We write now message vectors $a \in \FF_q^k$ as $r \times \frac{k}{r}$ matrices.
+        
+        $$ a = \;
+        \begin{pmatrix}
+            a_{0,0} & a_{0,1} & \cdots & a_{0,\frac{k}{r}-1} \\
+            a_{1,0} & a_{1,1} & \cdots & a_{1,\frac{k}{r}-1} \\
+            \vdots  & \vdots  & \ddots & \vdots \\
+            a_{r-1,0} & a_{r-1,1} & \cdots & a_{r-1,\frac{k}{r}-1}
+        \end{pmatrix}
+        $$
+    \end{frame}
+    
+    \begin{frame}{Construction of LRC codes}
+        \begin{block}{Encoding polynomial}
+            Given the message vector $a \in \FF_q^k$, define the \textbf{encoding polynomial} as:
+            $$ f_a(x) = \sum_{i=0}^{r-1} x^i \cdot f_i(x) $$
+            where
+            $$f_i(x) = \sum_{j=0}^{\frac{k}{r}-1} a_{ij} g(x)^j $$
+        \end{block}
+    \end{frame}
+    \begin{frame}
+        $$ f_a(x) =
+        \begin{pmatrix}
+            x^0 & \dots & x^{r-1}
+        \end{pmatrix}
+        \begin{pmatrix}
+            a_{0,0} & \cdots & a_{0,\frac{k}{r}-1} \\
+            \vdots  & \ddots & \vdots \\
+            a_{r-1,0} & \cdots & a_{r-1,\frac{k}{r}-1}
+        \end{pmatrix}
+        \begin{pmatrix}
+            g(x)^0 \\
+            \vdots \\
+            g(x)^{\frac{k}{r}-1}
+        \end{pmatrix} =
+        $$
+        
+        $$
+        =
+        \begin{pmatrix}
+            x^0 & \dots & x^{r-1}
+        \end{pmatrix}
+        \begin{pmatrix}
+            f_0(x) \\
+            \vdots \\
+            f_{r-1}(x)
+        \end{pmatrix}
+        $$
+    \end{frame}
+    
+    \begin{frame}
+        The codeword for $a \in \FF_q^k$ is found as the evaluation vector of $f_a$ at all the points of $A$.
+        \begin{block}{LRC code}
+            The $(n,k,r)$ LRC code $\C$ is defined as the set of $n$-dimensional vectors
+            $$\C = \{ (f_a(\alpha), \alpha \in A) : a \in \FF_q^k \}$$
+        \end{block}
+    \end{frame}
+    
+\begin{frame}
+    \begin{rmk}
+        $$x \in A_i \Rightarrow \quad g(x) \mbox{ constant}$$
+        $$\Rightarrow f_\ell(x) = \sum_{j=0}^{\frac{k}{r}-1} a_{\ell j} g(x)^j \mbox{ constant in } A_i$$
+        $$\Rightarrow \text{deg}(f_a(x)) = \text{deg}(\sum_{j=0}^{r-1} x^j \cdot f_j(x)) \leq r-1 \mbox{ in } A_i$$
+    \end{rmk}
+\end{frame}
+
+\begin{frame}{Recovery of the erased symbol}
+    Suppose erased symbol: $\alpha \in A_j$.
+    
+    Let $\left( c_{\beta}, \ \beta \in A_j \setminus \alpha \right)$ denote the remaining $r$ symbols of the recovering set.
+    
+    To find the value $c_{\alpha} = f_a(\alpha)$, find the unique polynomial $\delta(x)$ s.t.
+    \begin{itemize}
+        \item $\text{deg}(\delta(x)) \leq r$
+        \item $\delta(\beta) = c_{\beta} \quad \forall \beta \in A_j \setminus \alpha$
+    \end{itemize}
+    
+    This polynomial is:
+    $$\delta(x) = \sum_{\beta \in A_j \setminus \alpha} c_{\beta} \prod_{\beta ' \in A_j \setminus \{\alpha, \beta\}} \frac{x - \beta'}{\beta - \beta '}$$
+
+    Finally, set $c_{\alpha} = \delta(\alpha)$.
+    
+\end{frame}
+
+\begin{frame}
+    \begin{thm}
+        The linear code $\C$ defined has dimension $k$ and is an optimal $(n,k,r)$ LRC code.
+    \end{thm}
+\end{frame}
+
+\begin{frame}
+    \begin{proof}[Proof of dimension]
+        For $i \in \{0, \dots, r-1 \}$; $j \in \{0, \dots, \frac{k}{r-1}\}$ the $k$ polynomials $g(x)^j x^i$ all are of distinct degrees, i.e. linearly independent over $\FF$.
+        
+        $\Rightarrow$ The mapping $a \mapsto f_a$ is injective.
+        
+        $$\mbox{deg}(f_a(x)) \leq \mbox{deg}(x^{r-1}) + \mbox{deg}(g(x)^{\frac{k}{r}-1}) = r-1 + (r+1)(\frac{k}{r}-1)$$
+        $$= k + \frac{k}{r} - 2 \leq n - 2$$
+        
+        This means that two distinct encoding polynomials give rise to two distinct codevectors. $\quad \Rightarrow \quad $ The dimension of the code is $k$.
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    \begin{proof}[Proof of optimality]
+        Since the encoding is linear:
+        $$d(\C) \geq n - \max_{f_a, a\in \FF_q^k} \mbox{deg}(f_a) = n - k - \frac{k}{r} + 2 \geq n - k - \left\lceil\frac{k}{r}\right\rceil + 2$$
+        But we have that $d(\C) \leq n - k - \left\lceil\frac{k}{r}\right\rceil + 2$.
+        Therefore, we have equality and thus it is an optimal LRC Code.
+    \end{proof}
+\end{frame}
