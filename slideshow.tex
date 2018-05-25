@@ -1,17 +1,27 @@
-\documentclass{beamer}
+\documentclass[envcountsect]{beamer}
 
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amsfonts,amsthm, amssymb, mathrsfs, yfonts} % Math packages
 \usepackage{cancel}
 
+\setbeamertemplate{theorems}[ams style]
+\setbeamertemplate{footline}[frame number]
+
+\usepackage{pgf, tikz}
+\usetikzlibrary{arrows, automata}
+
 \newcommand{\FF}{\mathbb{F}}
 \newcommand{\A}{\mathcal{A}}
 \newcommand{\C}{\mathcal{C}}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\card}[1]{\left\vert {#1} \right\vert}
 
-\newtheorem{thm}{Theorem}
-\newtheorem{pf}{Proof}
-\newtheorem{rmk}{Remark}
-\newtheorem{defn}{Definition}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{pf}{Proof}[thm]
+\newtheorem{rmk}[thm]{Remark}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{lema}[thm]{Lemma}
 
 
 \usetheme{Copenhagen}
@@ -40,9 +50,7 @@
         
         $f_a(x) = a_0 + a_1 x + a_2 x^4 + a_3 x^6$
         
-        $a = (1,1,1,1)$
-
-        $c = (4,8,7,5,2,6,2,2,2,3,9,1)$
+        $$a = (1,1,1,1) \quad \longrightarrow \quad c = (4,8,7,5,2,6,2,2,2,3,9,1)$$
         
         As already seen: $\delta(x) = 2x + 2$; $\delta(1)=4$.
         $$\delta ' (x) = c_5 \frac{x-12}{5-12}\frac{x-8}{5-8} + c_{12} \frac{x-5}{12-5}\frac{x-8}{12-8} + c_8 \frac{x-5}{8-5}\frac{x-12}{8-12}$$
@@ -50,18 +58,5 @@
         $$ = x^2 + x + 2 \quad \longrightarrow \quad \delta ' (1) = 4$$
     \end{frame}        
     
-    \begin{frame}
-        Every coordinate $i$ has $t$ disjoint recovering sets $R_1^i, \dots, R_j^i$, each of size $r$, where $R_j^i \subset \left[n \right] \setminus i$.
-        \begin{block}{Definition}
-            The \textbf{recovering graph} of a $(n,k,r,t)$ LRC code $\mathcal{C}$ is an directed graph $G=(V,E)$ where:
-            \begin{itemize}
-                \item $V = \left[n \right]$. The set of vertices corresponds the set of $n$ coordinates of $\mathcal{C}$.
-                \item $(i,j) \in E \iff j \in R_l^i$ for some $l \in \left[ t \right]$.\\
-                There is an edge $i \rightarrow j$ if $j$ is in a recovering set of $i$.\\
-                Note that $N(i) = \bigcup_{l = 1}^{t} R_l^i$
-            \end{itemize}
-        \end{block}
-    \end{frame}    
-    
-    
+    \input{parts/LRC_t}
 \end{document}

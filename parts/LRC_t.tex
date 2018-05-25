@@ -1,0 +1,457 @@
+\begin{frame}
+        Assume every coordinate $i$ has $t$ disjoint recovering sets $\R_i^1, \dots, \R_i^t$, each of size $r$, where $\R_i^j \subset \left[n \right] \setminus i$.
+        \begin{block}{Definition}
+            The \textbf{recovery graph} of a $(n,k,r,t)$ LRC code $\mathcal{C}$ is a directed graph $G=(V,E)$ where:
+            \begin{itemize}
+                \item $V = \left[n \right]$. (Vertices $\leftrightarrow$ coordinates of $\mathcal{C}$).
+                \item $(i,j) \in E \iff j \in \R_i^\ell$ for some $\ell \in \left[ t \right]$.\\
+                There is an edge $i \rightarrow j$ if $j$ is in a recovering set of $i$.\\
+            \end{itemize}    
+                Note that $N(i) = \bigcup_{\ell = 1}^{t} \R_i^\ell$
+        \end{block}
+    \end{frame}    
+    
+\begin{frame}
+    Let $C$ be an $(n,k,r,t)$ LRC code with $t$ dijsoint recovering sets of size $r$. Then:
+    \begin{thm}
+        \label{thm:max_rate_t}
+        The rate of $C$ satisfies
+        $$ \frac{k}{n} \leq \frac{1}{\prod_{j=1}^{t} (1 + \frac{1}{jr} )} $$
+    \end{thm}
+    
+    \begin{thm}
+        \label{thm:min_dist_t}
+        The minimum distance of $C$ is bounded above as follows
+        $$ d \leq n - \sum_{i=0}^{t} \left\lfloor \frac{k-1}{r^i} \right\rfloor $$
+    \end{thm}
+\end{frame}    
+    
+    
+    
+    \begin{frame}
+    Recovery graph for the $(9,4,2)$-LRC code.
+    
+    Recall: $\A = \{ A_1 = \{1,3,9\}, A_2 = \{2,6,5 \}, A_3 = \{4,12,10 \} \}$
+        \begin{tikzpicture}
+            \tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}	
+            \tikzset{edge/.style = {->,> = latex'}}
+            
+	        \node[vertex] (n1) at (0,0) {$1$};
+	        \node[vertex] (n3) at (2,0) {$3$};
+	        \node[vertex] (n9) at (1,-2) {$9$};
+	        
+	        \node[vertex] (n6) at (3,-2) {$6$};
+	        \node[vertex] (n2) at (5,-2) {$2$};
+	        \node[vertex] (n5) at (4,0) {$5$};
+
+	        \node[vertex] (n12) at (6,0) {$12$};
+	        \node[vertex] (n4)  at (8,0) {$4$};
+	        \node[vertex] (n10) at (7,-2) {$10$};
+	        
+	        \draw[edge] (n1) to [bend left=10] (n3);
+	        \draw[edge] (n1) to [bend left=10] (n9);
+	        \draw[edge] (n3) to [bend left=10] (n1);
+	        \draw[edge] (n3) to [bend left=10] (n9);
+	        \draw[edge] (n9) to [bend left=10] (n1);
+	        \draw[edge] (n9) to [bend left=10] (n3);
+	        
+	        \draw[edge] (n2) to [bend left=10] (n5);
+	        \draw[edge] (n2) to [bend left=10] (n6);
+	        \draw[edge] (n5) to [bend left=10] (n2);
+	        \draw[edge] (n5) to [bend left=10] (n6);
+	        \draw[edge] (n6) to [bend left=10] (n2);
+	        \draw[edge] (n6) to [bend left=10] (n5);
+	        
+	        \draw[edge] (n4) to [bend left=10] (n10);
+	        \draw[edge] (n4) to [bend left=10] (n12);
+	        \draw[edge] (n10) to [bend left=10] (n4);
+	        \draw[edge] (n10) to [bend left=10] (n12);
+	        \draw[edge] (n12) to [bend left=10] (n4);
+	        \draw[edge] (n12) to [bend left=10] (n10);
+	
+	        %\draw[red, dashed] (1, 2) -- (1, -2);
+	            
+        \end{tikzpicture}
+    \end{frame}
+    
+     \begin{frame}
+        Color the edges with $t$ distinct colors to differenciate recovering sets.
+        
+        Let $F$ be a coloring function of the edges:
+        $$
+            \begin{array}{ccccc}
+                F: & E(G) & \longrightarrow & [t]  & \\
+                   &(i,j) & \longmapsto     & \ell & \mbox{iff } j \in \R_i^\ell
+            \end{array}
+        $$
+        
+    Remark: the out-degree of any vertex $i \in V$ is $\sum_\ell \vert \R_i^\ell \vert = tr$, and the edges leaving $i$ are colored in $t$ colors.
+    
+    \end{frame}    
+    
+    \begin{frame}
+    Recovery graph for the $(12,4,\{2,3\})$-LRC code with edge coloring.
+    
+    Recall: 
+    
+    $\mathcal{A} = \left\lbrace  \left\lbrace 1, 5, 12 , 8 \right\rbrace, \left\lbrace 2 , 10 , 11 , 3 \right\rbrace , \left\lbrace 4 , 7 , 9 , 6 \right\rbrace \right\rbrace$
+        
+     $\mathcal{A'} = \left\lbrace  \left\lbrace 1 , 3 , 9 \right\rbrace, \left\lbrace 2 , 6 , 5 \right\rbrace , \left\lbrace 4 , 12 , 10 \right\rbrace , \left\lbrace 7 , 8 , 11 \right\rbrace \right\rbrace$
+        \begin{tikzpicture}
+            \tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}	
+            \tikzset{edge/.style = {->,> = latex',red}}
+            \tikzset{edge2/.style = {->,> = latex',blue}}
+            
+            \def \radius {3cm}
+            \def \n {12}
+            
+	        \node[vertex] (n1) at ({360/\n * (0)}:\radius) {$1$};
+	        \node[vertex] (n3) at ({360/\n * (1)}:\radius) {$3$};
+	        \node[vertex] (n9) at ({360/\n * (2)}:\radius) {$9$};
+	        
+	        \node[vertex] (n2) at ({360/\n * (3)}:\radius) {$2$};
+	        \node[vertex] (n6) at ({360/\n * (4)}:\radius) {$6$};
+	        \node[vertex] (n5) at ({360/\n * (5)}:\radius) {$5$};
+	        
+	        \node[vertex] (n4) at ({360/\n * (6)}:\radius) {$4$};
+	        \node[vertex] (n12)  at ({360/\n * (7)}:\radius) {$12$};
+	        \node[vertex] (n10) at ({360/\n * (8)}:\radius) {$10$};
+	        
+	        \node[vertex] (n7) at ({360/\n * (9)}:\radius) {$7$};
+	        \node[vertex] (n8)  at ({360/\n * (10)}:\radius) {$8$};
+	        \node[vertex] (n11) at ({360/\n * (11)}:\radius) {$11$};
+	        
+	        \draw[edge] (n1) to [bend left=10] (n3);
+	        \draw[edge] (n1) to [bend left=10] (n9);
+	        \draw[edge] (n3) to [bend left=10] (n1);
+	        \draw[edge] (n3) to [bend left=10] (n9);
+	        \draw[edge] (n9) to [bend right=30] (n1);
+	        \draw[edge] (n9) to [bend left=10] (n3);
+	        
+	        \draw[edge] (n2) to [bend left=10] (n5);
+	        \draw[edge] (n2) to [bend left=10] (n6);
+	        \draw[edge] (n5) to [bend right=30] (n2);
+	        \draw[edge] (n5) to [bend left=10] (n6);
+	        \draw[edge] (n6) to [bend left=10] (n2);
+	        \draw[edge] (n6) to [bend left=10] (n5);
+	        
+	        \draw[edge] (n4) to [bend left=10] (n10);
+	        \draw[edge] (n4) to [bend left=10] (n12);
+	        \draw[edge] (n10) to [bend right=30] (n4);
+	        \draw[edge] (n10) to [bend left=10] (n12);
+	        \draw[edge] (n12) to [bend left=10] (n4);
+	        \draw[edge] (n12) to [bend left=10] (n10);
+	        
+	        \draw[edge] (n7) to [bend left=10] (n8);
+	        \draw[edge] (n7) to [bend left=10] (n11);
+	        \draw[edge] (n8) to [bend left=10] (n7);
+	        \draw[edge] (n8) to [bend left=10] (n11);
+	        \draw[edge] (n11) to [bend left=10] (n8);
+	        \draw[edge] (n11) to [bend right=30] (n7);
+	        
+	        \draw[edge2] (n1) to [bend left=10] (n5);
+	        \draw[edge2] (n1) to [bend left=10] (n12);
+	        \draw[edge2] (n1) to [bend right=10] (n8);
+	        
+	        \draw[edge2] (n5) to [bend left=10] (n1);
+	        \draw[edge2] (n5) to [bend left=10] (n12);
+	        \draw[edge2] (n5) to [bend left=10] (n8);
+	        
+	        \draw[edge2] (n12) to [bend right=20] (n5);
+	        \draw[edge2] (n12) to [bend left=10] (n1);
+	        \draw[edge2] (n12) to [bend left=10] (n8);
+	        
+	        \draw[edge2] (n8) to [bend left=10] (n5);
+	        \draw[edge2] (n8) to [bend left=10] (n12);
+	        \draw[edge2] (n8) to [bend left=20] (n1);
+	        
+	        
+	        \draw[edge2] (n2) to [bend right=20] (n3);
+	        \draw[edge2] (n2) to [bend left=10] (n10);
+	        \draw[edge2] (n2) to [bend left=10] (n11);
+	        
+	        \draw[edge2] (n3) to [bend left=10] (n2);
+	        \draw[edge2] (n3) to [bend left=10] (n10);
+	        \draw[edge2] (n3) to [bend right=20] (n11);
+	        
+	        \draw[edge2] (n10) to [bend left=10] (n3);
+	        \draw[edge2] (n10) to [bend left=10] (n2);
+	        \draw[edge2] (n10) to [bend left=10] (n11);
+	        
+	        \draw[edge2] (n11) to [bend left=10] (n3);
+	        \draw[edge2] (n11) to [bend left=10] (n10);
+	        \draw[edge2] (n11) to [bend left=10] (n2);
+
+	        
+	        \draw[edge2] (n4) to [bend right=20] (n6);
+	        \draw[edge2] (n4) to [bend left=10] (n7);
+	        \draw[edge2] (n4) to [bend left=10] (n9);
+	        
+	        \draw[edge2] (n6) to [bend left=10] (n4);
+	        \draw[edge2] (n6) to [bend left=10] (n7);
+	        \draw[edge2] (n6) to [bend right=20] (n9);
+	        
+	        \draw[edge2] (n7) to [bend left=10] (n6);
+	        \draw[edge2] (n7) to [bend left=10] (n4);
+	        \draw[edge2] (n7) to [bend left=10] (n9);
+	        
+	        \draw[edge2] (n9) to [bend left=10] (n6);
+	        \draw[edge2] (n9) to [bend left=10] (n7);
+	        \draw[edge2] (n9) to [bend left=10] (n4);
+	            
+        \end{tikzpicture}
+    \end{frame}
+    
+    
+    \begin{frame}
+    Recovery graph for the $(12,4,\{2,3\})$-LRC code with edge coloring.
+    
+    Recall: 
+
+    $
+        \mathcal{A} = \left\lbrace
+        \only<5>{\textcolor{blue}}{\left\lbrace 1, 5, 12 , 8 \right\rbrace},
+        \only<6>{\textcolor{blue}}{\left\lbrace 2 , 10 , 11 , 3 \right\rbrace},
+        \only<7>{\textcolor{blue}}{\left\lbrace 4 , 7 , 9 , 6 \right\rbrace}
+        \right\rbrace
+    $
+    
+     $ 
+         \mathcal{A'} = \left\lbrace
+         \only<1>{\textcolor{red}}{\left\lbrace 1 , 3 , 9 \right\rbrace},
+         \only<2>{\textcolor{red}}{\left\lbrace 2 , 6 , 5 \right\rbrace},
+         \only<3>{\textcolor{red}}{\left\lbrace 4 , 12 , 10 \right\rbrace},
+         \only<4>{\textcolor{red}}{\left\lbrace 7 , 8 , 11 \right\rbrace}
+         \right\rbrace
+     $
+        \begin{tikzpicture}
+            \tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}	
+            \tikzset{edge1/.style = {-,> = latex',red}}
+            \tikzset{edge2/.style = {-,> = latex',blue}}
+            
+            \def \radius {3cm}
+            \def \n {12}
+            
+	        \node[vertex] (n1) at ({360/\n * (0)}:\radius) {$1$};
+	        \node[vertex] (n3) at ({360/\n * (1)}:\radius) {$3$};
+	        \node[vertex] (n9) at ({360/\n * (2)}:\radius) {$9$};
+	        
+	        \node[vertex] (n2) at ({360/\n * (3)}:\radius) {$2$};
+	        \node[vertex] (n6) at ({360/\n * (4)}:\radius) {$6$};
+	        \node[vertex] (n5) at ({360/\n * (5)}:\radius) {$5$};
+	        
+	        \node[vertex] (n4) at ({360/\n * (6)}:\radius) {$4$};
+	        \node[vertex] (n12)  at ({360/\n * (7)}:\radius) {$12$};
+	        \node[vertex] (n10) at ({360/\n * (8)}:\radius) {$10$};
+	        
+	        \node[vertex] (n7) at ({360/\n * (9)}:\radius) {$7$};
+	        \node[vertex] (n8)  at ({360/\n * (10)}:\radius) {$8$};
+	        \node[vertex] (n11) at ({360/\n * (11)}:\radius) {$11$};
+	        
+	        \only<1,8>{
+	        \draw[edge1] (n1) to (n3);
+	        \draw[edge1] (n1) to (n9);
+	        \draw[edge1] (n3) to (n9);
+	        }
+	        
+	        \only<2,8>{
+	        \draw[edge1] (n2) to (n6);
+	        \draw[edge1] (n2) to (n5);
+	        \draw[edge1] (n5) to (n6);
+	        }
+	        
+	        \only<3,8>{
+	        \draw[edge1] (n4) to (n10);
+	        \draw[edge1] (n4) to (n12);
+	        \draw[edge1] (n12) to (n10);
+	        }
+	        
+	        \only<4,8>{
+	        \draw[edge1] (n7) to (n8);
+	        \draw[edge1] (n7) to (n11);
+	        \draw[edge1] (n8) to (n11);
+	        }
+	        
+	        \only<5,8>{
+	        \draw[edge2] (n1) to (n5);
+	        \draw[edge2] (n1) to (n12);
+	        \draw[edge2] (n1) to (n8);
+	        \draw[edge2] (n5) to (n12);
+	        \draw[edge2] (n5) to (n8);
+	        \draw[edge2] (n8) to (n12);
+	        }
+	        
+	        \only<6,8>{
+	        \draw[edge2] (n2) to (n10);
+	        \draw[edge2] (n2) to (n11);
+	        \draw[edge2] (n2) to (n3);
+	        \draw[edge2] (n10) to (n11);
+	        \draw[edge2] (n10) to (n3);
+	        \draw[edge2] (n11) to (n3);
+	        }
+	        
+	        \only<7,8>{
+	        \draw[edge2] (n4) to (n7);
+	        \draw[edge2] (n4) to (n9);
+	        \draw[edge2] (n4) to (n6);
+	        \draw[edge2] (n7) to (n9);
+	        \draw[edge2] (n7) to (n6);
+	        \draw[edge2] (n9) to (n6);
+	        }
+	        
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \begin{lema}
+        \label{lemma:rate_lemma}
+        There exists a subset of the vertices $U \subseteq V$ of size at least
+        $$ \vert U \vert \geq n \left( 1 - \frac{1}{\prod_{j=1}^{t} \left(1 + \frac{1}{jr} \right)} \right) $$
+        such that for any $U' \subseteq U$, $G_{U'}$ has at least one vertex $v \in U'$ such that its set of outgoing edges is missing at least one color.
+    
+    \end{lema}
+\end{frame}
+
+\begin{frame}
+    For a given permutation $\tau$ of the set of vertices $V$, define the coloring of some of the vertices.
+    
+    The color $j \in [t]$ is assigned to $v$ if
+    $$\tau(v) > \tau(m) \quad \forall m \in \R_v^j$$
+    
+    If this condition is satisfied for several values of $m$, the vertex $v$ is assigned any of these colors.
+    
+    If this condition is not satisfied at all, the vertex $v$ is not colored.
+\end{frame}
+
+\begin{frame}
+    Let $U$ be the set of colored vertices. Consider one of its subsets $U' \subseteq U$.
+    
+    Assume toward a contradiction that every vertex of $G_{U'}$ has outgoing edges of all $t$ colors.
+    
+    Choose a vertex $v \in U'$ and construct the following walk: if the path ends at some vertex with color $j$, choose one of its outgoing edges colored in $j$.
+    $$\textcolor{red}{v_1 \longrightarrow } \textcolor{blue}{v_2 \longrightarrow} \textcolor{green}{v_3 \longrightarrow} \dots \textcolor{orange}{\longrightarrow} v_\ell$$
+    We can extend this path indefinitely as every vertex has outgoing edges of all $t$ colors.
+\end{frame}
+
+\begin{frame}
+    Since the graph $G_{U'}$ is finite, there will be a vertex (call it $v_1$) that is encountered twice.
+
+    $$\textcolor{red}{v_1 \longrightarrow } \textcolor{blue}{v_2 \longrightarrow} \textcolor{green}{v_3 \longrightarrow} \dots \textcolor{orange}{\longrightarrow} v_\ell \longrightarrow \textcolor{red}{v_1}$$
+    
+    But:
+        $$
+            \left .
+                \begin{matrix}
+                    v_i & \mbox{ color j} \\
+                    (v_i, v_{i+1}) & \mbox{ color j}
+                \end{matrix}
+            \right \}
+            \Longrightarrow \tau (v_i) > \tau (v_{i+1})
+        $$
+        
+        $$
+            \tau (v_1) > \tau (v_2) > \dots > \tau (v_\ell) > \tau (v_1) 
+        $$
+        
+        Contradiction!!!
+        
+        Then, there must be a vertex in $U'$ such that its set of outgoing edges is missing one color.
+        
+\end{frame}
+
+\begin{frame}
+    To show that there exists such $U$ of large carinality, we choose $\tau$ uniformly at random among $\mathfrak{S}_n$ and compute $E(\card{U})$.
+    
+    Let $A_{v,j}$ be the event that the equation $\tau(v) > \tau(m) \quad \forall m \in \R_v^j$ holds for the vertex $v$ and the color $j$.
+    Since all vertices have $r$ outgoing edges for each of the $t$ different colors, the probability $Pr(A_{v,j})$ does not depend on $v$, we write $A_{j} :=  A_{v,j}$.
+    
+    Recall that $v \in U$ if $v$ is colored with some color $\ell$, and is colored with $\ell$ if $A_{\ell}$ happens.
+    $$Pr(v \in U) = Pr(\bigcup_{j=1}^{t} A_j)$$
+\end{frame}
+
+\begin{frame}
+    Inclusion-exclusion formula: 
+    $$Pr(\bigcup_{j=1}^{t} A_j) = \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} Pr( \bigcap_{j\in S} A_j )$$.
+    
+    For that, we need, for any set $S \subseteq [t]$ the probability that all the $A_j, j \in S$ occur simultaneously.
+    $$
+        Pr(\bigcap_{j\in S} A_j ) = \frac{1}{\card{S}r+1}
+    $$
+    
+    \begin{proof}
+        For any assignation of values given to $\{v\} \cup ( \bigcup_{j\in S} R_v^j)$, only $1$ out of $\card{S} r + 1$ is the maximum.
+    \end{proof}
+\end{frame}
+
+\begin{frame}
+    $$
+        Pr(\bigcup_{j=1}^{t} A_j)
+        = \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} Pr( \bigcap_{j\in S} A_j )
+    $$
+    $$
+        = \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} \frac{1}{\card{S}r+1}
+        = \sum_{j=1}^{t} (-1)^{j - 1} \binom{t}{j} \frac{1}{\card{S}r+1}
+    $$
+    $$
+        = 1 - \frac{1}{ \prod_{j=1}^{t} \left(1 + \frac{1}{jr} \right) }
+    $$
+\end{frame}
+
+\begin{frame}
+    Let $X_v$ be the indicator for the event that $v \in U$.
+    
+    $$
+        E(\card{U})
+        = \sum_{v \in V} E(X_v)
+        = \sum_{v \in V} Pr(v \in U)
+        = n \cdot Pr(\bigcup_{j=1}^{t} A_j)
+    $$
+    $$
+        = n (1 - \frac{1}{ \prod_{j=1}^{t} \left(1 + \frac{1}{jr} \right) })
+    $$
+    
+    Observation: there exists $\tau \in \mathfrak{S}_n$ for which $\card{U} \geq E(\card{U})$.
+\end{frame}
+
+\begin{frame}{Proof of Theorem \ref{thm:max_rate_t}}
+    Let $U \subseteq [n]$ be the set of vertices of cardinality as in the one constructed in Lemma \ref{lemma:rate_lemma}. \\~\\
+    
+    Claim: every coordinate $i\in U$ can be recovered by accessing the coordinates in $\bar{U} = [n] \setminus U$. \\~\\
+    
+    By Lemma \ref{lemma:rate_lemma}, for any $U' \subseteq U$, $\exists v\in U'$ that is missing one color, say $\ell$, in its outgoing edges in $G_U'$. 
+    
+    $$ \Rightarrow \quad \R_v^\ell \subseteq \overline{U'} \quad \Rightarrow \quad v \mbox{ can be recovered from } \overline{U'}$$ \\~\\
+    
+\end{frame}
+
+\begin{frame}
+
+    Suppose the values of the coordinates in $\bar{U}$ are known. \\~\\
+    
+    Consider:
+    \begin{itemize}
+        \item $U^{(0)} = U$
+        \item $U^{(i+1)} = U^{(i)} \setminus \{v_{i}\}$ \\
+         s.t. $R_{v_i}^{\ell_i} \subseteq \overline{U^{(i)}}$ for some $\ell_i \in [t]$ \\~\\
+    \end{itemize}
+    
+    Every $v_i$ can be recovered from $\overline{U^{(i)}}$ which consists of the known values of $\overline{U}$ and the $i$ previously recovered values $v_0, v_1, ..., v_{i-1}$. \\~\\
+    
+    Conclusion: Every coordinate $i \in U$ can be recovered from the coordinates in $\overline{U}$.
+\end{frame}
+
+\begin{frame}
+    From the last claim, we deduce
+    
+    $$ k \leq \card{\overline{U}} \leq \frac{n}{\prod_{j=1}^t (1 + \frac{1}{jr})}$$ \\~\\
+    
+    From where we get a bound on the rate
+    
+    $$\frac{k}{n} \leq \frac{1}{\prod_{j=1}^t (1 + \frac{1}{jr})}$$
+    
+    \qedsymbol
+\end{frame}
+
+\begin{frame}
+    
+\end{frame}
