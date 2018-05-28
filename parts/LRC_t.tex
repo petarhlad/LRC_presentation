@@ -1,4 +1,7 @@
-\begin{frame}
+\section{Bounds on LRC-t codes}
+\subsection{Recovery graph}
+\begin{frame}{Recovery graph}
+
         Assume every coordinate $i$ has $t$ disjoint recovering sets $\R_i^1, \dots, \R_i^t$, each of size $r$, where $\R_i^j \subset \left[n \right] \setminus i$.
         \begin{block}{Definition}
             The \textbf{recovery graph} of a $(n,k,r,t)$ LRC code $\mathcal{C}$ is a directed graph $G=(V,E)$ where:
@@ -10,7 +13,7 @@
                 Note that $N(i) = \bigcup_{\ell = 1}^{t} \R_i^\ell$
         \end{block}
     \end{frame}    
-    
+\subsection{Statements of the bounds}
 \begin{frame}
     Let $C$ be an $(n,k,r,t)$ LRC code with $t$ dijsoint recovering sets of size $r$. Then:
     \begin{thm}
@@ -26,13 +29,15 @@
     \end{thm}
 \end{frame}    
     
-    
+\subsection{Definitions and examples for the proof}
     
     \begin{frame}
     Recovery graph for the $(9,4,2)$-LRC code.
     
     Recall: $\A = \{ A_1 = \{1,3,9\}, A_2 = \{2,6,5 \}, A_3 = \{4,12,10 \} \}$
+        \begin{center}
         \begin{tikzpicture}
+        
             \tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}	
             \tikzset{edge/.style = {->,> = latex'}}
             
@@ -72,6 +77,7 @@
 	        %\draw[red, dashed] (1, 2) -- (1, -2);
 	            
         \end{tikzpicture}
+        \end{center}
     \end{frame}
     
      \begin{frame}
@@ -97,12 +103,13 @@
     $\mathcal{A} = \left\lbrace  \left\lbrace 1, 5, 12 , 8 \right\rbrace, \left\lbrace 2 , 10 , 11 , 3 \right\rbrace , \left\lbrace 4 , 7 , 9 , 6 \right\rbrace \right\rbrace$
         
      $\mathcal{A'} = \left\lbrace  \left\lbrace 1 , 3 , 9 \right\rbrace, \left\lbrace 2 , 6 , 5 \right\rbrace , \left\lbrace 4 , 12 , 10 \right\rbrace , \left\lbrace 7 , 8 , 11 \right\rbrace \right\rbrace$
+     \begin{center}
         \begin{tikzpicture}
             \tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}	
             \tikzset{edge/.style = {->,> = latex',red}}
             \tikzset{edge2/.style = {->,> = latex',blue}}
             
-            \def \radius {3cm}
+            \def \radius {2.5cm}
             \def \n {12}
             
 	        \node[vertex] (n1) at ({360/\n * (0)}:\radius) {$1$};
@@ -200,6 +207,7 @@
 	        \draw[edge2] (n9) to [bend left=10] (n4);
 	            
         \end{tikzpicture}
+        \end{center}
     \end{frame}
     
     
@@ -223,13 +231,14 @@
          \only<3>{\textcolor{red}}{\left\lbrace 4 , 12 , 10 \right\rbrace},
          \only<4>{\textcolor{red}}{\left\lbrace 7 , 8 , 11 \right\rbrace}
          \right\rbrace
-     $
+     $   
+        \begin{center}
         \begin{tikzpicture}
             \tikzset{vertex/.style = {shape=circle,draw,minimum size=1.5em}}	
             \tikzset{edge1/.style = {-,> = latex',red}}
             \tikzset{edge2/.style = {-,> = latex',blue}}
             
-            \def \radius {3cm}
+            \def \radius {2.5cm}
             \def \n {12}
             
 	        \node[vertex] (n1) at ({360/\n * (0)}:\radius) {$1$};
@@ -300,7 +309,10 @@
 	        }
 	        
     \end{tikzpicture}
+    \end{center}
 \end{frame}
+
+\subsection{Proof for the rate bound}
 
 \begin{frame}
     \begin{lema}
@@ -452,6 +464,17 @@
     \qedsymbol
 \end{frame}
 
+\subsection{Proof of the minimum distance bound}
+
 \begin{frame}
-    
+\tableofcontents[ 
+currentsubsection, 
+hideothersubsections, 
+sectionstyle=show/hide, 
+subsectionstyle=show/shaded, 
+] 
+\end{frame}
+
+\begin{frame}
+    To be continued ...
 \end{frame}
