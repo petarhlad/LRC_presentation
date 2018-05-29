@@ -1,18 +1,4 @@
-\section{Bounds on LRC-t codes}
-\subsection{Recovery graph}
-\begin{frame}{Recovery graph}
-
-        Assume every coordinate $i$ has $t$ disjoint recovering sets $\R_i^1, \dots, \R_i^t$, each of size $r$, where $\R_i^j \subset \left[n \right] \setminus i$.
-        \begin{block}{Definition}
-            The \textbf{recovery graph} of a $(n,k,r,t)$ LRC code $\mathcal{C}$ is a directed graph $G=(V,E)$ where:
-            \begin{itemize}
-                \item $V = \left[n \right]$. (Vertices $\leftrightarrow$ coordinates of $\mathcal{C}$).
-                \item $(i,j) \in E \iff j \in \R_i^\ell$ for some $\ell \in \left[ t \right]$.\\
-                There is an edge $i \rightarrow j$ if $j$ is in a recovering set of $i$.\\
-            \end{itemize}    
-                Note that $N(i) = \bigcup_{\ell = 1}^{t} \R_i^\ell$
-        \end{block}
-    \end{frame}    
+\section{Bounds on LRC-t codes} 
 \subsection{Statements of the bounds}
 \begin{frame}
     Let $C$ be an $(n,k,r,t)$ LRC code with $t$ dijsoint recovering sets of size $r$. Then:
@@ -30,11 +16,25 @@
 \end{frame}    
     
 \subsection{Definitions and examples for the proof}
-    
+\begin{frame}{Recovery graph}
+
+        Assume every coordinate $i$ has $t$ disjoint recovering sets $\R_i^1, \dots, \R_i^t$, each of size $r$, where $\R_i^j \subset \left[n \right] \setminus i$. \pause
+        \begin{block}{Definition}
+            The \textbf{recovery graph} of a $(n,k,r,t)$ LRC code $\mathcal{C}$ is a directed graph $G=(V,E)$ where: \pause
+            \begin{itemize}
+                \item $V = \left[n \right]$. (Vertices $\leftrightarrow$ coordinates of $\mathcal{C}$). \pause
+                \item $(i,j) \in E \iff j \in \R_i^\ell$ for some $\ell \in \left[ t \right]$.\\ \pause
+                There is an edge $i \rightarrow j$ if $j$ is in a recovering set of $i$.\\ \pause
+            \end{itemize}    
+                Note that $N(i) = \bigcup_{\ell = 1}^{t} \R_i^\ell$
+        \end{block}
+    \end{frame}    
+       
     \begin{frame}
-    Recovery graph for the $(9,4,2)$-LRC code.
+    Recovery graph for the $(9,4,2)$-LRC code. \pause \\~\\
     
-    Recall: $\A = \{ A_1 = \{1,3,9\}, A_2 = \{2,6,5 \}, A_3 = \{4,12,10 \} \}$
+    Recall: $\A = \{ A_1 = \{1,3,9\}, A_2 = \{2,6,5 \}, A_3 = \{4,12,10 \} \}$ \pause \\~\\
+    
         \begin{center}
         \begin{tikzpicture}
         
@@ -81,7 +81,7 @@
     \end{frame}
     
      \begin{frame}
-        Color the edges with $t$ distinct colors to differenciate recovering sets.
+        Color the edges with $t$ distinct colors to differenciate recovering sets. \pause \\~\\
         
         Let $F$ be a coloring function of the edges:
         $$
@@ -89,7 +89,7 @@
                 F: & E(G) & \longrightarrow & [t]  & \\
                    &(i,j) & \longmapsto     & \ell & \mbox{iff } j \in \R_i^\ell
             \end{array}
-        $$
+        $$ \pause \\~\\
         
     Remark: the out-degree of any vertex $i \in V$ is $\sum_\ell \vert \R_i^\ell \vert = tr$, and the edges leaving $i$ are colored in $t$ colors.
     
@@ -313,6 +313,15 @@
 \end{frame}
 
 \subsection{Proof for the rate bound}
+\begin{frame}{Proof for the rate bound}
+To prove bound on max. rate:
+\begin{enumerate}
+    \item Construct set $U$ of coordinates that can be recovered from $\overline{U} := [n]\setminus U$.
+    \item Compute lower bound on $\card{U}$ $ \quad \longrightarrow \quad $ upper bound on $\card{\overline{U}}$
+    \item u. bound on $\card{\overline{U}}$ $\rightarrow$ u. bound on $k$ $\rightarrow$ u. bound on max. rate 
+\end{enumerate}
+\end{frame}
+
 
 \begin{frame}
     \begin{lema}
@@ -324,92 +333,106 @@
     \end{lema}
 \end{frame}
 
-\begin{frame}
-    For a given permutation $\tau$ of the set of vertices $V$, define the coloring of some of the vertices.
+\begin{frame}{Implications of Lemma \ref{lemma:rate_lemma}}
+    1.
+    
+    Outgoing edges of $v \in U'$ missing color $\ell$
+    
+    $\Rightarrow$ $\R_v^\ell \subseteq V \setminus U'$
+    
+    $\Rightarrow$ $v$ can be recovered from $V \setminus U'$ \\~\\
+    
+    2.
+    
+    $\forall U' \subseteq U$,  $\quad \exists v \in U'$ that can be recovered from $V \setminus U'$
+    
+    $\Rightarrow$ There is a chain $U = U_0 \supset U_1 \supset \dots \supset U_{\card{U}} = \emptyset $
+    
+    where $U_i \setminus U_{i+1} = v_i $ s.t. $v_i$ can be recovered from $V \setminus U_i$
+    
+    $\Rightarrow$ $U$ can be recovered from $\overline{U}$
+    
+\end{frame}
+
+\begin{frame}{Proof of Lemma \ref{lemma:rate_lemma}}
+    To construct $U$:
+    \begin{enumerate}[<+->]
+        \item Define a coloring on $V$ in which not all vertices are colored.
+        \item Define $U$ as the set of colored vertices
+        \item Check that $U$ has the desired properties
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Proof of Lemma \ref{lemma:rate_lemma} (I)}
+    For a given permutation $\tau \in \mathfrak{S}_n$ of $V$, define the coloring of some of the vertices. \\~\\
     
     The color $j \in [t]$ is assigned to $v$ if
-    $$\tau(v) > \tau(m) \quad \forall m \in \R_v^j$$
-    
-    If this condition is satisfied for several values of $m$, the vertex $v$ is assigned any of these colors.
+    $$\tau(v) > \tau(m) \quad \forall m \in \R_v^j$$ \\~\\
     
     If this condition is not satisfied at all, the vertex $v$ is not colored.
 \end{frame}
 
-\begin{frame}
-    Let $U$ be the set of colored vertices. Consider one of its subsets $U' \subseteq U$.
+\begin{frame}{Proof of Lemma \ref{lemma:rate_lemma} (II)}
+    Let $U$ be the set of colored vertices. Consider any $U' \subseteq U$. \\~\\
     
-    Assume toward a contradiction that every vertex of $G_{U'}$ has outgoing edges of all $t$ colors.
+    Assume toward a contradiction that every vertex of $G_{U'}$ has outgoing edges of all $t$ colors. \\~\\
     
-    Choose a vertex $v \in U'$ and construct the following walk: if the path ends at some vertex with color $j$, choose one of its outgoing edges colored in $j$.
+    Choose $v \in U'$ and construct the following walk: if the path ends at some vertex with color $\mathbf{j}$, choose one of its outgoing edges colored in $\mathbf{j}$.
     $$\textcolor{red}{v_1 \longrightarrow } \textcolor{blue}{v_2 \longrightarrow} \textcolor{green}{v_3 \longrightarrow} \dots \textcolor{orange}{\longrightarrow} v_\ell$$
     We can extend this path indefinitely as every vertex has outgoing edges of all $t$ colors.
 \end{frame}
 
-\begin{frame}
-    Since the graph $G_{U'}$ is finite, there will be a vertex (call it $v_1$) that is encountered twice.
-
-    $$\textcolor{red}{v_1 \longrightarrow } \textcolor{blue}{v_2 \longrightarrow} \textcolor{green}{v_3 \longrightarrow} \dots \textcolor{orange}{\longrightarrow} v_\ell \longrightarrow \textcolor{red}{v_1}$$
-    
-    But:
+\begin{frame}{Proof of Lemma \ref{lemma:rate_lemma} (III)}
+    Since $G_{U'}$ is finite, there will be a vertex (say $v_1$) that is encountered twice.
+    $$\textcolor{red}{v_1 \longrightarrow } \textcolor{blue}{v_2 \longrightarrow} \textcolor{green}{v_3 \longrightarrow} \dots \textcolor{orange}{\longrightarrow} v_\ell \longrightarrow \textcolor{red}{v_1}$$ \pause
         $$
             \left .
                 \begin{matrix}
-                    v_i & \mbox{ color j} \\
-                    (v_i, v_{i+1}) & \mbox{ color j}
+                    v_i  \mbox{ color j} & \Rightarrow & \tau(v_i) > \tau(m) \quad m \in \R_{v_i}^j \pause \\
+                    (v_i, v_{i+1}) \mbox{ color j} & \Rightarrow & v_{i+1} \in \R_{v_i}^j \pause
                 \end{matrix}
             \right \}
-            \Longrightarrow \tau (v_i) > \tau (v_{i+1})
-        $$
-        
+            \Rightarrow \tau (v_i) > \tau (v_{i+1}) \pause
+        $$ 
         $$
             \tau (v_1) > \tau (v_2) > \dots > \tau (v_\ell) > \tau (v_1) 
-        $$
-        
-        Contradiction!!!
-        
-        Then, there must be a vertex in $U'$ such that its set of outgoing edges is missing one color.
+        $$ \pause
+        Contradiction!!! Then, there must be a vertex in $U'$ such that its set of outgoing edges is missing one color.
         
 \end{frame}
 
-\begin{frame}
-    To show that there exists such $U$ of large carinality, we choose $\tau$ uniformly at random among $\mathfrak{S}_n$ and compute $E(\card{U})$.
+\begin{frame}{Proof of Lemma \ref{lemma:rate_lemma} (IV)}
+    To show that there exists such $U$ of large carinality, we choose $\tau \in \mathfrak{S}_n$ uniformly at random and compute $E(\card{U})$. \\~\\ \pause
     
-    Let $A_{v,j}$ be the event that the equation $\tau(v) > \tau(m) \quad \forall m \in \R_v^j$ holds for the vertex $v$ and the color $j$.
-    Since all vertices have $r$ outgoing edges for each of the $t$ different colors, the probability $Pr(A_{v,j})$ does not depend on $v$, we write $A_{j} :=  A_{v,j}$.
+    Let $A_{v,j}$ be the event that $\tau(v) > \tau(m) \quad \forall m \in \R_v^j$ holds.\\~\\ \pause
     
-    Recall that $v \in U$ if $v$ is colored with some color $\ell$, and is colored with $\ell$ if $A_{\ell}$ happens.
+    Since the probability $Pr(A_{v,j})$ does not depend on $v$, we write $A_{j} :=  A_{v,j}$.\\~\\ \pause
+    
+    Note that $v \in U$ if $A_{\ell}$ happens for some $\ell \in [t]$. \pause
+    
     $$Pr(v \in U) = Pr(\bigcup_{j=1}^{t} A_j)$$
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Proof of Lemma \ref{lemma:rate_lemma} (V)}
     Inclusion-exclusion formula: 
-    $$Pr(\bigcup_{j=1}^{t} A_j) = \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} Pr( \bigcap_{j\in S} A_j )$$.
+    $$Pr(\bigcup_{j=1}^{t} A_j) = \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} Pr( \bigcap_{j\in S} A_j )$$ \\~\\ \pause
     
-    For that, we need, for any set $S \subseteq [t]$ the probability that all the $A_j, j \in S$ occur simultaneously.
+    For that, we need the probability of simultaneous events:
     $$
         Pr(\bigcap_{j\in S} A_j ) = \frac{1}{\card{S}r+1}
     $$
-    
-    \begin{proof}
-        For any assignation of values given to $\{v\} \cup ( \bigcup_{j\in S} R_v^j)$, only $1$ out of $\card{S} r + 1$ is the maximum.
-    \end{proof}
 \end{frame}
 
-\begin{frame}
-    $$
-        Pr(\bigcup_{j=1}^{t} A_j)
-        = \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} Pr( \bigcap_{j\in S} A_j )
-    $$
-    $$
-        = \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} \frac{1}{\card{S}r+1}
-        = \sum_{j=1}^{t} (-1)^{j - 1} \binom{t}{j} \frac{1}{\card{S}r+1}
-    $$
-    $$
-        = 1 - \frac{1}{ \prod_{j=1}^{t} \left(1 + \frac{1}{jr} \right) }
-    $$
+\begin{frame}{Proof of Lemma \ref{lemma:rate_lemma} (VI)}
+        \begin{align*}
+            Pr(\bigcup_{j=1}^{t} A_j) & = & \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} Pr( \bigcap_{j\in S} A_j ) \\
+            & = & \sum_{\emptyset \neq S \subseteq [t]} (-1)^{\card{S} - 1} \frac{1}{\card{S}r+1} \\
+            & = & \sum_{j=1}^{t} (-1)^{j - 1} \binom{t}{j} \frac{1}{\card{S}r+1} \\
+            & = & 1 - \frac{1}{ \prod_{j=1}^{t} \left(1 + \frac{1}{jr} \right) }
+        \end{align*}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Proof of Lemma \ref{lemma:rate_lemma} (VII)}
     Let $X_v$ be the indicator for the event that $v \in U$.
     
     $$
@@ -426,42 +449,15 @@
 \end{frame}
 
 \begin{frame}{Proof of Theorem \ref{thm:max_rate_t}}
-    Let $U \subseteq [n]$ be the set of vertices of cardinality as in the one constructed in Lemma \ref{lemma:rate_lemma}. \\~\\
+    Let $U \subseteq [n]$ be the set of vertices of cardinality as in the one constructed in Lemma \ref{lemma:rate_lemma}. \\~\\ \pause
     
-    Claim: every coordinate $i\in U$ can be recovered by accessing the coordinates in $\bar{U} = [n] \setminus U$. \\~\\
+    Claim: every coordinate $i\in U$ can be recovered by accessing the coordinates in $\bar{U} = [n] \setminus U$. \pause
     
-    By Lemma \ref{lemma:rate_lemma}, for any $U' \subseteq U$, $\exists v\in U'$ that is missing one color, say $\ell$, in its outgoing edges in $G_U'$. 
-    
-    $$ \Rightarrow \quad \R_v^\ell \subseteq \overline{U'} \quad \Rightarrow \quad v \mbox{ can be recovered from } \overline{U'}$$ \\~\\
-    
-\end{frame}
-
-\begin{frame}
-
-    Suppose the values of the coordinates in $\bar{U}$ are known. \\~\\
-    
-    Consider:
-    \begin{itemize}
-        \item $U^{(0)} = U$
-        \item $U^{(i+1)} = U^{(i)} \setminus \{v_{i}\}$ \\
-         s.t. $R_{v_i}^{\ell_i} \subseteq \overline{U^{(i)}}$ for some $\ell_i \in [t]$ \\~\\
-    \end{itemize}
-    
-    Every $v_i$ can be recovered from $\overline{U^{(i)}}$ which consists of the known values of $\overline{U}$ and the $i$ previously recovered values $v_0, v_1, ..., v_{i-1}$. \\~\\
-    
-    Conclusion: Every coordinate $i \in U$ can be recovered from the coordinates in $\overline{U}$.
-\end{frame}
-
-\begin{frame}
-    From the last claim, we deduce
-    
-    $$ k \leq \card{\overline{U}} \leq \frac{n}{\prod_{j=1}^t (1 + \frac{1}{jr})}$$ \\~\\
+    $$ k \leq \card{\overline{U}} \leq \frac{n}{\prod_{j=1}^t (1 + \frac{1}{jr})}$$ \\~\\ \pause
     
     From where we get a bound on the rate
     
     $$\frac{k}{n} \leq \frac{1}{\prod_{j=1}^t (1 + \frac{1}{jr})}$$
-    
-    \qedsymbol
 \end{frame}
 
 \subsection{Proof of the minimum distance bound}

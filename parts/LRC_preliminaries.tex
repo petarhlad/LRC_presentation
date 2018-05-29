@@ -19,15 +19,26 @@
 \end{frame}
 
 \subsection{Definition and properties of LRC}
-
 \begin{frame}{Definition of LRC Codes}
-    Given $a \in \FF_q$ consider the sets of codewords of $\C$ with fixed value $a$ at the symbol $x_i$:
+ Let $\C$ be a code of length $n$ over an alphabet $A$. \\~\\
+ 
+ $\C$ is a Locally Recoverable Code (LRC) with locality $r$ if the value of every coordinate $i \in [n]$ of the code is determined by the value of (at most) $r$ other coordinates. \\~\\
+
+LRC codes can be linear or non linear.
+
+\end{frame}
+
+
+\begin{frame}{Formal definition}
+    Given $a \in A$ consider the set of codewords with fixed value $a$ at coordinate $i$:
 
     $$ \C (i,a) = \{ x \in \C : x_i = a \}, \quad i \in [n] $$
     
     \begin{defn}
-        A code $\C$ of length $n$ has \textbf{locality r} if $\ \forall i \in [n ] $ there exists a subset $I_i \subset [n] \setminus i, \quad \vert I_i \vert \leq r$ such that the restrictions of the sets $\C (i,a)$ to the coordinates in $I_i$ for different $a$ are disjoint:
-        $$\C_{I_i} (i,a) \cap \C_{I_i} (i,a') = \emptyset, \quad a \neq a'.$$
+        A code $\C$ of length $n$ has \textbf{locality r} if \\~\\
+        
+         $\ \forall i \in [n ]$ there exists $I \subseteq [n] \setminus i, \quad \vert I \vert \leq r \quad $ s.t.         
+        $$\C_{I} (i,a) \cap \C_{I} (i,a') = \emptyset, \quad a \neq a'.$$
     \end{defn}    
 \end{frame}
 
@@ -46,6 +57,6 @@ Given $x \in \C$, $i \in [n]$, there exists a subset $I_i \subset [n] \setminus 
     \begin{thm}[Generalization of Singleton bound]
         The minimum distance of $\C$ satisfies
             $$d \leq n - k - \left\lceil \frac{k}{r} \right\rceil + 2$$
-        A code that achieves the bound with equality will be called an \textbf{optimal LRC code}.
+        If equality holds, we call $\C$ an \textbf{optimal LRC code}.
     \end{thm}
 \end{frame}
